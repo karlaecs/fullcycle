@@ -1,9 +1,10 @@
 ### Create Asset
 POST http://localhost:3000/api/assets
 Content-Type: application/json
+
 {
-    "id": "asset1",
-    "symbol": "MGLU3",
+  "id": "asset1",
+  "symbol": "A1"
 }
 
 ### List Assets
@@ -12,6 +13,7 @@ GET http://localhost:3000/api/assets
 ### Create Order
 POST http://localhost:3000/api/orders
 Content-Type: application/json
+
 {
     "asset_id": "asset1",
     "price": 25.50,
