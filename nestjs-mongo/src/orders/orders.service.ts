@@ -5,9 +5,9 @@ import { PrismaService } from 'src/prisma/prisma/prisma.service';
 export class OrdersService {
   constructor(private prismaService: PrismaService) {}
 
-  // all() {
-  //   return this.prismaService.order.findMany();
-  // }
+  all() {
+    return this.prismaService.order.findMany();
+  }
 
   create(data: { asset_id: string; price: number }) {
     return this.prismaService.order.create({

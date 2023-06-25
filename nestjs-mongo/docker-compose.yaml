@@ -1,0 +1,35 @@
+version: '3'
+
+services: 
+  db:
+    # instead of using image bitnami/mongodb:5.0.17 (it's not working), this image builds a replicaset in its own Dockerfile
+    build: ./mongodb_rs
+    #image: bitnami/mongodb:5.0.17
+    #image: mongo:5.0.17
+    #command: mongod --replSet my-mongo-set
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_PASSWORD: root
+      MONGO_REPLICA_HOST: db
+      # MONGODB_REPLICA_SET_MODE: primary
+      # MONGODB_REPLICA_SET_KEY: 123456
+      MONGODB_DATABASE: nest
+    ports:
+      - 9090:9090
+    # volumes:
+    #   - mongodb_data:/bitnami/mongodb
+
+  app:
+    build: .
+    # command: bash -c "npm run start:dev"
+    ports:
+      - 3000:3000
+      - 5555:5555
+    volumes:
+      - .:/home/node/app
+    env_file:
+      - .env
+
+networks:
+  my-network:
+    external: true

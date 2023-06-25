@@ -3,24 +3,31 @@ version: '3'
 services:
   app:
     build: .
+    command: bash -c "npm install && npm run build && npm run start"
     ports:
       - 3000:3000
       - 5555:5555
     volumes:
       - .:/home/node/app
+    extra_hosts:
+      - "host.docker.internal:172.17.0.1"
 
   db:
-    image: bitnami/mongodb:5.0.17
-    volumes:
-      - mongodb_data:/bitnami/mongodb
+    build: ./mongodb_rs
+    restart: always
     environment:
-      MONGODB_ROOT_PASSWORD: root
-      MONGODB_REPLICA_SET_MODE: primary
-      MONGODB_REPLICA_SET_KEY: 123456
-      MONGODB_DATABASE: nest
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: root
+      MONGO_INITDB_DATABASE: mongo
+      MONGO_REPLICA_HOST: localhost
+      MONGO_REPLICA_PORT: 27017
+    ports:
+      - 27017:27017
 
 volumes:
-  mongodb_data:
+  mongodb_rs:
     driver: local
 
-
+networks:
+  my-network:
+    external: true
