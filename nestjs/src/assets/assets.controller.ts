@@ -7,11 +7,11 @@ export class AssetsController {
 
   @Get()
   all() {
-    return this.assetsService.all()
+    return this.assetsService.all();
   }
 
   @Post()
-  create(@Body() body: { id: string; symbol: string; price: number }) {
+  create(@Body() body: { id: string; symbol: string }) {
     return this.assetsService.create(body);
   }
 }

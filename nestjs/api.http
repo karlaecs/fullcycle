@@ -4,14 +4,18 @@ Content-Type: application/json
 {
     "id": "asset1",
     "symbol": "MGLU3",
-    "price": 10,
 }
 
 ### List Assets
 GET http://localhost:3000/api/assets
 
 ### Create Order
-POST http://localhost:3000/api/assets
+POST http://localhost:3000/api/orders
+Content-Type: application/json
+{
+    "asset_id": "asset1",
+    "price": 25.50,
+}
 
 ### List Order
 GET http://localhost:3000/api/orders
