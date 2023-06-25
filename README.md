@@ -11,3 +11,7 @@ $ docker run karlaecs/fullcycle
 ```
 
 Full Cycle Rocks!!
+
+### Challenge 2: Docker and Nest.js
+
+Directory Code: `nestjs/`
