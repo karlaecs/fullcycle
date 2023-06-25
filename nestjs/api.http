@@ -1,0 +1,11 @@
+// List assets
+GET http://localhost:3000/api/assets
+
+// Create assets
+POST http://localhost:3000/api/assets
+
+// List orders
+GET http://localhost:3000/api/orders
+
+// Create orders
+POST http://localhost:3000/api/assets
