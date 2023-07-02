@@ -1,17 +1,5 @@
 # FullCycle
 
-### Challenge 1: Docker and GO lang
+Hey! Welcome to my development journey for a full cycle track.
 
-[Docker Hub Link](https://hub.docker.com/r/karlaecs/fullcycle)
-
-Directory Code: `go/`
-
-```shell
-$ docker run karlaecs/fullcycle
-```
-
-Full Cycle Rocks!!
-
-### Challenge 2: Docker and Nest.js
-
-Directory Code: `nestjs/`
+[About Full Cycle Developers at Netflix](https://netflixtechblog.com/full-cycle-developers-at-netflix-a08c31f83249)
