@@ -3,7 +3,7 @@ version: '3'
 services:
     laravel:
       build:
-        context: ./php/laravel
+        context: ./
         dockerfile: Dockerfile.prod
       image: karlaecs/laravel:prod
       container_name: laravel
@@ -12,7 +12,7 @@ services:
 
     nginx:
       build:
-        context: ./nginx
+        context: ../../nginx
         dockerfile: Dockerfile.prod
       image: karlaecs/nginx:prod
       container_name: nginx
