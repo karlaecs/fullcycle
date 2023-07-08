@@ -24,7 +24,6 @@ app.get('/', (_req, res) => {
             res.send(`<h1>Full Cycle Rocks!</h1><ul>${nameList.join('')}</ul>`)
         }
     })
-    connection.end() 
 })
 
 app.listen(port, () => {
