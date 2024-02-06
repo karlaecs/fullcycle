@@ -13,8 +13,7 @@ jobs:
         working-directory: ./ci/go
     strategy:
       matrix:
-        go: ["1.14"]
-
+        go: ["1.15"]
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-go@v2
@@ -43,3 +42,21 @@ jobs:
           file: ./ci/go/Dockerfile
           push: true
           tags: karlaecs/fullcycle-ci-go:latest
+
+  sonarcloud:
+    runs-on: ubuntu-latest
+    environment: production
+    defaults:
+      run:
+        working-directory: ./ci/go
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v2
+        with:
+          go-version: 1.15
+      - run: go test -coverprofile=coverage.out
+      - name: SonarCloud Scan
+        uses: sonarsource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
