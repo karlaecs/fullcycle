@@ -7,17 +7,56 @@ on:
 jobs:
   check-application:
     runs-on: ubuntu-latest
+    environment: production
     defaults:
       run:
         working-directory: ./ci/go
     strategy:
       matrix:
-        go: ["1.14", "1.15"]
-
+        go: ["1.15"]
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - uses: actions/setup-go@v2
         with:
           go-version: ${{ matrix.go }}
       - run: go test
       - run: go run math.go
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login to DockerHub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build and push Docker image
+        id: docker_build
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: ./ci/go/Dockerfile
+          push: true
+          tags: karlaecs/fullcycle-ci-go:latest
+
+  sonarcloud:
+    runs-on: ubuntu-latest
+    environment: production
+    defaults:
+      run:
+        working-directory: ./ci/go
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v2
+        with:
+          go-version: 1.15
+      - run: go test -coverprofile=coverage.out
+      - name: SonarCloud Scan
+        uses: sonarsource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
